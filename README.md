@@ -28,9 +28,12 @@ The result looks as follows:
 ```
 
 Note: `Content-Type` header value includes ISO-8859-1 charset. AFAIU it's included by embedded
-Tomcat server because it's the default charset when nothing is set explicitly (see
-`org.apache.coyote.Constants.DEFAULT_BODY_CHARSET`).
+Tomcat server because it's the default charset when nothing is set explicitly (
+see `org.apache.coyote.Constants.DEFAULT_BODY_CHARSET`).
 
 The issue reproduces when setting `Content-Type` through `HttpServletResponse` interface directly
 when no charset set explicitly (e.g., in any Spring Security handler interface implementation,
-such as `AccessDeniedHandler`);
+such as `AccessDeniedHandler`).
+
+Also, there are integration tests demonstrating that issue does not reproduce when testing using
+MockMvc (no charset included at all), while Karate tests catch Latin-1 charset.
